@@ -158,7 +158,7 @@ local Tab = Window:MakeTab({"压力", "cool"})
 Tab:AddButton({
     Name ="小go汉化",
     Callback = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/xgomn/zxcvb/refs/heads/main/bad%20undergroundwar%202"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/xgomn/zxcvb/refs/heads/main/WT%20-%20Pressure"))()
     end
 })
 Tab:AddButton({
