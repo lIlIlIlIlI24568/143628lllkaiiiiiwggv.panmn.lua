@@ -161,10 +161,7 @@ Tab:AddButton({
     local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
---[[
-	* The libraries isnt mine, like Bin
-	* It tracks connections, instances, functions, threads, and objects to be later destroyed.
-]]
+
 local Bin
 do
 	Bin = setmetatable({}, {
@@ -217,23 +214,11 @@ do
 	end
 end
 
---[[
-    ----------------------
-    Variables & References
-    ----------------------
-]]
-
 local LootFolders : Folder = Workspace.Misc.Zones.LootingItems:WaitForChild('废料')
 local LocalPlayer : Player = Players.LocalPlayer
 local CurrentCamera = Workspace.CurrentCamera
 local ScreenGui = Instance.new("ScreenGui")
 
---[[
-    --------------------
-    Function Declaration
-    --------------------
-    All the functions that are used throughout the code
-]]
 function format(num, format)
     local formatted = string.format(`%.{format}f`, num)
     return formatted
@@ -243,11 +228,5 @@ function blackfunction(...)
     return ...
 end
 
---[[
-    ----------------
-    Custom Functions
-    ----------------
-    All the custom functions that are used through the code for compability
-]]
 local cl
 })
