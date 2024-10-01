@@ -149,7 +149,7 @@ end
 local redzlib = loadstring(game:HttpGet("https://pastebin.com/raw/ES4EnW6Z"))()
 
 local Window = redzlib:MakeWindow({
-  Title = "压力合集",
+  Title = "xgo压力合集",
   SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
   SaveFolder = "Redz Config"
 })
