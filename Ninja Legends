@@ -153,7 +153,7 @@ local Window = redzlib:MakeWindow({
   SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
   SaveFolder = "Redz Config"
 })
-local Tab = Window:MakeTab({"忍者传奇", "cool"})
+local Tab = Window:MakeTab({"内置", "cool"})
 
 local Section = Tab:AddSection({
 	Name = "小go内置"
@@ -630,7 +630,7 @@ Tab:AddButton({
     end
 })
 
-local Tab = Window:MakeTab({"其他脚本", "cool"})
+local Tab = Window:MakeTab({"脚本", "cool"})
 
 Tab:AddButton({
     Name ="安",
