@@ -1,0 +1,718 @@
+local ESPLib = {}
+
+function ESPLib:CreateESPTag(params)
+	local RunService = game:GetService("RunService")
+	local player = game.Players.LocalPlayer
+	local camera = game:GetService("Workspace").CurrentCamera
+
+	local Text = params.Text
+	local Part = params.Part
+	local TextSize = params.TextSize
+	local TextColor = params.TextColor
+	local BoxColor = params.BoxColor
+	local TracerColor = params.TracerColor or Color3.new(255, 255, 255)
+	local TracerWidth = params.TracerWidth or 3
+	local TrailMode = params.TrailMode or false
+	local TrailColor = params.TrailColor or {Color3.new(255, 0, 0)} 
+	local TrailWidth = params.TrailWidth or {2}
+
+	if #TrailColor < 2 then
+		TrailColor[2] = TrailColor[1]
+	end
+
+	if #TrailWidth < 2 then
+		TrailWidth[2] = TrailWidth[1] -- Duplicate the width if only one is provided
+	end
+
+	local esp = Instance.new("BillboardGui")
+	esp.Name = "esp"
+	esp.Size = UDim2.new(0, 200, 0, 50)
+	esp.StudsOffset = Vector3.new(0, Part.Size.Y + 2, 0) -- Adjusted offset for the label above the head
+	esp.Adornee = Part
+	esp.Parent = Part
+	esp.AlwaysOnTop = true
+
+	local esplabelfr = Instance.new("TextLabel")
+	esplabelfr.Name = "esplabelfr"
+	esplabelfr.Size = UDim2.new(1, 0, 0, 70)
+	esplabelfr.BackgroundColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextColor3 = TextColor or Color3.fromRGB(255, 255, 255)
+	esplabelfr.BackgroundTransparency = 1
+	esplabelfr.TextStrokeTransparency = 0
+	esplabelfr.TextStrokeColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextSize = TextSize
+	esplabelfr.TextScaled = false
+	esplabelfr.Font = "Arcade"
+	esplabelfr.Parent = esp
+
+	local box = Instance.new("BoxHandleAdornment")
+	box.Name = "box"
+	box.Size = Part.Size + Vector3.new(0.5, 0.5, 0.5)
+	box.Adornee = Part
+	box.AlwaysOnTop = true
+	box.Transparency = 0.6
+	box.Color3 = BoxColor or Color3.new(0, 0, 255)
+	box.ZIndex = 0
+	box.Parent = Part
+
+	local tracerLine = Drawing.new("Line")
+	tracerLine.Visible = false
+
+	local trail = Instance.new("Trail")
+	trail.Texture = "rbxassetid://188166667"
+	trail.Attachment0 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Torso)
+	trail.Attachment1 = Instance.new("Attachment", Part)
+	trail.Enabled = false
+	trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+	trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+	trail.Parent = Part
+	trail.Lifetime = 0.5
+
+	local function updateesplabelfr()
+		if not Part or not Part:IsA("BasePart") or not Part.Parent then
+			-- Part no longer exists, delete ESP elements
+			esp:Destroy()
+			tracerLine:Remove()
+			trail:Destroy()
+			return
+		end
+
+		local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if playerPosition then
+			local distance = (playerPosition.Position - Part.Position).Magnitude
+			esplabelfr.Text = string.format(Text .. ": %.2f", distance)
+
+			local headPosition = Part.Position + Vector3.new(0, Part.Size.Y / 2, 0)
+			local screenPosition, onScreen = camera:WorldToScreenPoint(headPosition)
+
+			if onScreen or playerPosition.Position.Y > Part.Position.Y then
+				esp.Adornee = Part
+				esp.Enabled = true
+				box.Adornee = Part
+				box.Visible = true
+
+				-- Update tracer line points
+				local tracerStart = camera:WorldToViewportPoint(player.Character.Head.Position)
+				local tracerEnd = camera:WorldToViewportPoint(Part.Position)
+				tracerLine.From = Vector2.new(tracerStart.X, tracerStart.Y)
+				tracerLine.To = Vector2.new(tracerEnd.X, tracerEnd.Y)
+				tracerLine.Color = TracerColor
+				tracerLine.Thickness = TracerWidth-- Adjust the thickness of the line (increased from 1)
+				tracerLine.Visible = not TrailMode
+
+				-- Update trail
+				trail.Attachment1 = Part.Attachment
+				trail.Lifetime = 0.3
+				trail.Enabled = TrailMode
+				trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+				trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+			else
+				esp.Enabled = false
+				box.Visible = false
+				tracerLine.Visible = false
+				trail.Enabled = false
+			end
+		else
+			esp.Enabled = false
+			box.Visible = false
+			tracerLine.Visible = false
+			trail.Enabled = false
+		end
+	end
+
+	RunService.RenderStepped:Connect(updateesplabelfr)
+end
+
+
+local function noclip()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v:IsA"Part" then
+			v.CanCollide = false0
+		end
+	end
+end
+
+--game:GetService("Workspace").Lights.Light.Switch.Detector
+
+local function FullBright()
+	while wait() do
+		local Lighting = game:GetService("Lighting")
+		Lighting.Brightness = 2
+		Lighting.ClockTime = 14
+		Lighting.FogEnd = 100000
+		Lighting.GlobalShadows = false
+		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+	end
+end
+
+
+local redzlib = loadstring(game:HttpGet("https://pastebin.com/raw/ES4EnW6Z"))()
+
+local Window = redzlib:MakeWindow({
+  Title = "忍者传奇合集",
+  SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
+  SaveFolder = "Redz Config"
+})
+local Tab = Window:MakeTab({"忍者传奇", "cool"})
+
+local Section = Tab:AddSection({
+	Name = "小go内置"
+})
+autoswing = false
+function swinging()
+    spawn(
+        function()
+            while autoswing == true do
+                task.wait()
+                game:GetService("Players").LocalPlayer.ninjaEvent:FireServer("swingKatana")
+                if not autoswing then
+                    break
+                end
+            end
+        end
+    )
+end
+autosell = false
+function selling()
+    spawn(
+        function()
+            while autosell == true do
+                task.wait(.01)
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    game.workspace.sellAreaCircles["sellAreaCircle7"].circleInner.CFrame =
+                        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+                    wait(.1)
+                    game.workspace.sellAreaCircles["sellAreaCircle7"].circleInner.CFrame =
+                        game.Workspace.Part.CFrame
+                    if not autosell then
+                        break
+                    end
+                end
+            end
+        end
+    )
+end
+autosellmax = false
+function maxsell()
+    spawn(
+        function()
+            while autosellmax == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    if game.Players.LocalPlayer.PlayerGui.gameGui.maxNinjitsuMenu.Visible == true then
+                        game.workspace.sellAreaCircles["sellAreaCircle7"].circleInner.CFrame =
+                            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
+                        task.wait()
+                        game.workspace.sellAreaCircles["sellAreaCircle7"].circleInner.CFrame =
+                            game.Workspace.Part.CFrame
+                    end
+                end
+                if not autosellmax then
+                    break
+                end
+            end
+        end
+    )
+end
+autobuyswords = false
+function buyswords()
+    spawn(
+        function()
+            while autobuyswords == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    local oh1 = "buyAllSwords"
+                    local oh2 = {
+                        "Ground",
+                        "Astral Island",
+                        "Space Island",
+                        "Tundra Island",
+                        "Eternal Island",
+                        "Sandstorm",
+                        "Thunderstorm",
+                        "Ancient Inferno Island",
+                        "Midnight Shadow Island",
+                        "Mythical Souls Island",
+                        "Winter Wonder Island"
+                    }
+                    for i = 1, #oh2 do
+                        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(oh1, oh2[i])
+                    end
+                end
+                if not autobuyswords then
+                    break
+                end
+            end
+        end
+    )
+end
+autobuybelts = false
+function buybelts()
+    spawn(
+        function()
+            while autobuybelts == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    local oh1 = "buyAllBelts"
+                    local oh2 = {
+                        "Ground",
+                        "Astral Island",
+                        "Space Island",
+                        "Tundra Island",
+                        "Eternal Island",
+                        "Sandstorm",
+                        "Thunderstorm",
+                        "Ancient Inferno Island",
+                        "Midnight Shadow Island",
+                        "Mythical Souls Island",
+                        "Winter Wonder Island"
+                    }
+                    for i = 1, #oh2 do
+                        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(oh1, oh2[i])
+                    end
+                end
+                if not autobuybelts then
+                    break
+                end
+            end
+        end
+    )
+end
+autobuyranks = false
+function buyranks()
+    spawn(
+        function()
+            while autobuyranks == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    local oh1 = "buyRank"
+                    local oh2 = game:GetService("ReplicatedStorage").Ranks.Ground:GetChildren()
+                    for i = 1, #oh2 do
+                        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(oh1, oh2[i].Name)
+                    end
+                end
+                if not autobuyranks then
+                    break
+                end
+            end
+        end
+    )
+end
+autobuyskill = false
+function buyskill()
+    spawn(
+        function()
+            while autobuyskill == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    local oh1 = "buyAllSkills"
+                    local oh2 = {
+                        "Ground",
+                        "Astral Island",
+                        "Space Island",
+                        "Tundra Island",
+                        "Eternal Island",
+                        "Sandstorm",
+                        "Thunderstorm",
+                        "Ancient Inferno Island",
+                        "Midnight Shadow Island",
+                        "Mythical Souls Island",
+                        "Winter Wonder Island"
+                    }
+                    for i = 1, #oh2 do
+                        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(oh1, oh2[i])
+                    end
+                end
+                if not autobuyskill then
+                    break
+                end
+            end
+        end
+    )
+end
+autobuyshurikens = false
+function buyshurikens()
+    spawn(
+        function()
+            while autobuyshurikens == true do
+                task.wait()
+                if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+                    local oh1 = "buyAllShurikens"
+                    local oh2 = {
+                        "Ground",
+                        "Astral Island",
+                        "Space Island",
+                        "Tundra Island",
+                        "Eternal Island",
+                        "Sandstorm",
+                        "Thunderstorm",
+                        "Ancient Inferno Island",
+                        "Midnight Shadow Island",
+                        "Mythical Souls Island",
+                        "Winter Wonder Island"
+                    }
+                    for i = 1, #oh2 do
+                        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(oh1, oh2[i])
+                    end
+                end
+                if not autobuyshurikens then
+                    break
+                end
+            end
+        end
+    )
+end
+
+local Section = Tab:AddSection({
+	Name = "自动挥舞/售卖"
+})
+
+Tab:AddToggle(
+    {
+        Name = "自动挥舞",
+        Default = false,
+        Callback = function(x)
+            autoswing = x
+            if autoswing then
+                swinging()
+            end
+        end
+    }
+)
+
+Tab:AddToggle(
+    {
+        Name = "自动售卖",
+        Default = false,
+        Callback = function(x)
+            autosell = x
+            if autosell then
+                selling()
+            end
+        end
+    }
+)
+    
+Tab:AddToggle(
+    {
+        Name = "存满了自动售卖",
+        Default = false,
+        Callback = function(x)
+            autosellmax = x
+            if autosellmax then
+                maxsell()
+            end
+        end
+    }
+)
+
+local Section = Tab:AddSection({
+	Name = "自动购买功能"
+})
+
+Tab:AddToggle(
+    {
+        Name = "自动购买剑",
+        Default = false,
+        Callback = function(x)
+            autobuyswords = x
+            if autobuyswords then
+                buyswords()
+            end
+        end
+    }
+)
+
+Tab:AddToggle(
+    {
+        Name = "自动购买腰带",
+        Default = false,
+        Callback = function(x)
+            autobuybelts = x
+            if autobuybelts then
+                buybelts()
+            end
+        end
+    }
+)
+
+Tab:AddToggle(
+    {
+        Name = "自动购买称号",
+        Default = false,
+        Callback = function(x)
+            autobuyranks = x
+            if autobuyranks then
+                buyranks()
+            end
+        end
+    }
+)
+
+Tab:AddToggle(
+    {
+        Name = "自动购买忍术",
+        Default = false,
+        Callback = function(x)
+            autobuyskill = x
+            if autobuyskill then
+                buyskill()
+            end
+        end
+    }
+)
+
+Tab:AddToggle(
+    {
+        Name = "自动购买",
+        Default = false,
+        Callback = function(x)
+            autobuyshurikens = x
+            if autobuyshurikens then
+                buyshurikens()
+            end
+        end
+    }
+)
+
+Tab:AddButton(
+    {
+        Name = "解锁所有岛",
+        Callback = function()
+            for _, v in next, game.workspace.islandUnlockParts:GetChildren() do
+                if v then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.islandSignPart.CFrame
+                    wait(.5)
+                end
+            end
+        end
+    }
+)
+local Section = Tab:AddSection({
+	Name = "位置传送"
+})
+Tab:AddButton({
+	Name = "传送到出生点",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(25.665502548217773, 3.4228405952453613, 29.919952392578125)
+    end
+})
+Tab:AddButton({
+	Name = "传送到附魔岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(51.17238235473633, 766.1807861328125, -138.44842529296875)
+    end
+})
+Tab:AddButton({
+	Name = "传送到神秘岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(171.97178649902344, 4047.380859375, 42.0699577331543)
+    end
+})
+Tab:AddButton({
+	Name = "传送到太空岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(148.83824157714844, 5657.18505859375, 73.5014877319336)
+    end
+})
+Tab:AddButton({
+	Name = "传送到冻土岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(139.28330993652344, 9285.18359375, 77.36406707763672)
+    end
+})
+Tab:AddButton({
+	Name = "传送到永恒岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(149.34817504882812, 13680.037109375, 73.3861312866211)
+    end
+})
+Tab:AddButton({
+	Name = "传送到沙暴岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(133.37144470214844, 17686.328125, 72.00334167480469)
+    end
+})
+Tab:AddButton({
+	Name = "传送到雷暴岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(143.19349670410156, 24070.021484375, 78.05432891845703)
+    end
+})
+Tab:AddButton({
+	Name = "传送到远古炼狱岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(141.27163696289062, 28256.294921875, 69.3790283203125)
+    end
+})
+Tab:AddButton({
+	Name = "传送到午夜暗影岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(132.74267578125, 33206.98046875, 57.495574951171875)
+    end
+})
+Tab:AddButton({
+	Name = "传送到神秘灵魂岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(137.76148986816406, 39317.5703125, 61.06639862060547)
+    end
+})
+Tab:AddButton({
+	Name = "传送到冬季奇迹岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(137.2720184326172, 46010.5546875, 55.941951751708984)
+    end
+})
+Tab:AddButton({
+	Name = "传送到黄金大师岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(128.32339477539062, 52607.765625, 56.69411849975586)
+    end
+})
+Tab:AddButton({
+	Name = "传送到龙传奇岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(146.35226440429688, 59594.6796875, 77.53300476074219)
+    end
+})
+Tab:AddButton({
+	Name = "传送到赛博传奇岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(137.3321075439453, 66669.1640625, 72.21722412109375)
+    end
+})
+Tab:AddButton({
+Name = "传送到天岚超能岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(135.48077392578125, 70271.15625, 57.02311325073242)
+    end
+})
+Tab:AddButton({
+	Name = "传送到混沌传奇岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(148.58590698242188, 74442.8515625, 69.3177719116211)
+    end
+})
+Tab:AddButton({
+	Name = "传送到灵魂融合岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(136.9700927734375, 79746.984375, 58.54051971435547)
+    end
+})
+Tab:AddButton({
+	Name = "传送到黑暗元素岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(141.697265625, 83198.984375, 72.73107147216797)
+    end
+})
+Tab:AddButton({
+	Name = "传送到内心和平岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(135.3157501220703, 87051.0625, 66.78429412841797)
+    end
+})
+Tab:AddButton({
+	Name = "传送到炽烈漩涡岛",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(135.08216857910156, 91246.0703125, 69.56692504882812)
+    end
+})
+Tab:AddButton({
+	Name = "传送到35倍金币区域",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(86.2938232421875, 91245.765625, 120.54232788085938)
+    end
+})
+Tab:AddButton({
+	Name = "传送到死亡宠物",
+	Callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4593.21337890625, 130.87181091308594, 1430.2239990234375)
+    end
+})
+
+local Tab = Window:MakeTab({"其他脚本", "cool"})
+
+Tab:AddButton({
+    Name ="安",
+    Callback = function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/wucan114514/gegeyxjb/main/ninjalegend')))()
+    end
+})
+Tab:AddButton({
+	Name = "剑客:需加群组",
+	Callback = function()
+jianke_V4 = "作者_初夏"jianke__V4 = "作者QQ1412152634"jianke___V4 = "剑客QQ群347724155"loadstring(game:HttpGet(('https://raw.githubusercontent.com/JianKeCX/JianKeV4/main/ChuXia')))()
+	end
+})
+Tab:AddButton({
+	Name = "Vynixius",
+	Callback = function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Ninja%20Legends/Script.lua')))()
+	end
+})
+Tab:AddButton({
+    Name ="需要卡密",
+    Callback = function()
+    loadstring(game:HttpGet("https://lua-library.btteam.net/script-auth.txt"))()
+    end
+})
+Tab:AddButton({
+    Name ="AppleScript001",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/AppleScript001/Ninjas_Legends/main/README.md"))()
+    end
+})
+Tab:AddButton({
+    Name ="proxima Hub",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TrixAde/Proxima-Hub/main/Main.lua"))()
+    end
+})
+Tab:AddButton({
+    Name ="🚀  Load Space Hub  🛰",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/gameslocal"))()
+    end
+})
+Tab:AddButton({
+    Name ="需要卡密（FREEHub）",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FreeeScripts/FREEHub/main/Loader"))()
+    end
+})
+Tab:AddButton({
+    Name ="需要卡密（ExtremeAntonis）",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ExtremeAntonis/loader/main/loader.lua"))()
+    end
+})
+Tab:AddButton({
+    Name ="Sky-Hub",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/arlists/Sky-Hub/main/Main"))()
+    end
+})
+Tab:AddButton({
+    Name ="需要卡密（Lightning-Loader）",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ProjectLightningDev/Project-Lightning-Loader/main/Loader.Lua"))()
+    end
+})
+Tab:AddButton({
+    Name ="需要卡密（Vellerius V4）",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Corrupt2625/pjv/main/000000002.lua"))()
+    end
+})
+Tab:AddButton({
+    Name ="ProjectOmega",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScriptPirate/ProjectOmega/main/ProjectOmegaLoader.lua"))()
+    end
+})
+Tab:AddButton({
+    Name ="Strike Hub",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/StormSKz12/StirkeHub1/main/Gameincluded"))()
+    end
+})
