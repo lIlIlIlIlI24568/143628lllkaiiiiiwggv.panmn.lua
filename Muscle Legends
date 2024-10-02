@@ -179,3 +179,15 @@ Tab:AddButton({
     loadstring(game:HttpGet('https://raw.githubusercontent.com/jynzl/main/main/Musclas%20Legenos.lua'))()
     end
 })
+Tab:AddButton({
+    Name = "菜单版",
+    Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Nadir3709/Key-System--/main/KeySystemm'))()
+    end
+})
+Tab:AddButton({
+    Name = "Unique-Hub",
+    Callback = function()
+    loadstring(game:HttpGet('https://rawscripts.net/raw/Unique-Hub-(14-Gmes)_521'))()
+    end
+})
