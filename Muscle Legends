@@ -191,3 +191,10 @@ Tab:AddButton({
     loadstring(game:HttpGet('https://rawscripts.net/raw/Unique-Hub-(14-Gmes)_521'))()
     end
 })
+Tab:AddButton({
+    Name = "安",
+    Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/wucan114514/gegeyxjb/main/musclelegend'))()
+    end
+})
+
