@@ -226,48 +226,6 @@ Tab:AddToggle({
 	end    
 })
 Tab:AddToggle({
-	Name = "自动加入比赛",
-	Default = false,
-	Callback = function(t)"
-    Auto_Join_Race = t
-end
-
-spawn(function()
-    while task.wait() do
-        if Auto_Join_Race then
-            pcall(function()
-                if Client.PlayerGui.gameGui.raceJoinLabel.Visible then
-                    game:GetService("ReplicatedStorage").rEvents.raceEvent:FireServer("joinRace")
-                end
-            end)
-        end
-    end
-end)
-})
-
-Tab:AddToggle({
-	Name = "自动获胜",
-	Default = false,
-	Callback = function(t)
-    Auto_Race = t
-end
-
-spawn(function()
-    while task.wait() do
-        if Auto_Race then
-            pcall(function()
-                for i,v in pairs(game:GetService("Workspace").raceMaps:GetChildren()) do
-                    if game.Players.LocalPlayer.currentMap.Value == v.mapValue.Value then
-                        repeat task.wait() until Client.PlayerGui.gameGui.countdownLabels.goLabel.Visible
-                        Client.Character.HumanoidRootPart.CFrame = v.finishPart.CFrame
-                    end
-                end
-            end)
-        end
-    end
-end)
-})
-Tab:AddToggle({
 	Name = "固定地点刷跳圈",
 	Default = false,
 	Callback = function(state)
