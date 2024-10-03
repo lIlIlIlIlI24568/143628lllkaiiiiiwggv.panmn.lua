@@ -408,37 +408,6 @@ Tab:AddToggle({
         end
 	end    
 })
-Tab:AddToggle({
-	Name = "自动抽奖",
-	Default = false,
-	Callback = function(Value)
-            function Egg()
-                while getgenv().AutoEgg == true do
-                    game:GetService("ReplicatedStorage").rEvents.openCrystalRemote:InvokeServer("openCrystal", getgenv().Egg)
-                    wait()
-                end
-            end
-            
-            getgenv().AutoEgg = Value
-            Egg()
-          end
-    })
-Tab:AddDropdown({
-	Name = "选择晶体",
-	Default = "Yellow Crystal",
-	Options = {黄色晶体", "蓝色晶体", "红色晶体", "闪电晶体", "欧洲晶体", "熔岩晶体", "雪晶", "电动传说晶体", "空间晶体", "外星晶体", "电晶", "沙漠水晶"},
-	Callback = function(Value)
-		getgenv().Egg = Value
-	end    
-    })
-Tab:AddToggle({
-	Name = "自动出售",
-	Default = false,
-	Callback = function(Value)
-	getgenv().BugPet = Value
-	       BugPet()
-	    end    
-    })
 
 local Section = Tab:AddSection({
 	Name = "传送城市和赛道"
