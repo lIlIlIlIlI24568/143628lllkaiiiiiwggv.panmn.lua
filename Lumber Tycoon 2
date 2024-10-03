@@ -1,0 +1,232 @@
+local ESPLib = {}
+
+function ESPLib:CreateESPTag(params)
+	local RunService = game:GetService("RunService")
+	local player = game.Players.LocalPlayer
+	local camera = game:GetService("Workspace").CurrentCamera
+
+	local Text = params.Text
+	local Part = params.Part
+	local TextSize = params.TextSize
+	local TextColor = params.TextColor
+	local BoxColor = params.BoxColor
+	local TracerColor = params.TracerColor or Color3.new(255, 255, 255)
+	local TracerWidth = params.TracerWidth or 3
+	local TrailMode = params.TrailMode or false
+	local TrailColor = params.TrailColor or {Color3.new(255, 0, 0)} 
+	local TrailWidth = params.TrailWidth or {2}
+
+	if #TrailColor < 2 then
+		TrailColor[2] = TrailColor[1]
+	end
+
+	if #TrailWidth < 2 then
+		TrailWidth[2] = TrailWidth[1] -- Duplicate the width if only one is provided
+	end
+
+	local esp = Instance.new("BillboardGui")
+	esp.Name = "esp"
+	esp.Size = UDim2.new(0, 200, 0, 50)
+	esp.StudsOffset = Vector3.new(0, Part.Size.Y + 2, 0) -- Adjusted offset for the label above the head
+	esp.Adornee = Part
+	esp.Parent = Part
+	esp.AlwaysOnTop = true
+
+	local esplabelfr = Instance.new("TextLabel")
+	esplabelfr.Name = "esplabelfr"
+	esplabelfr.Size = UDim2.new(1, 0, 0, 70)
+	esplabelfr.BackgroundColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextColor3 = TextColor or Color3.fromRGB(255, 255, 255)
+	esplabelfr.BackgroundTransparency = 1
+	esplabelfr.TextStrokeTransparency = 0
+	esplabelfr.TextStrokeColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextSize = TextSize
+	esplabelfr.TextScaled = false
+	esplabelfr.Font = "Arcade"
+	esplabelfr.Parent = esp
+
+	local box = Instance.new("BoxHandleAdornment")
+	box.Name = "box"
+	box.Size = Part.Size + Vector3.new(0.5, 0.5, 0.5)
+	box.Adornee = Part
+	box.AlwaysOnTop = true
+	box.Transparency = 0.6
+	box.Color3 = BoxColor or Color3.new(0, 0, 255)
+	box.ZIndex = 0
+	box.Parent = Part
+
+	local tracerLine = Drawing.new("Line")
+	tracerLine.Visible = false
+
+	local trail = Instance.new("Trail")
+	trail.Texture = "rbxassetid://188166667"
+	trail.Attachment0 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Torso)
+	trail.Attachment1 = Instance.new("Attachment", Part)
+	trail.Enabled = false
+	trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+	trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+	trail.Parent = Part
+	trail.Lifetime = 0.5
+
+	local function updateesplabelfr()
+		if not Part or not Part:IsA("BasePart") or not Part.Parent then
+			-- Part no longer exists, delete ESP elements
+			esp:Destroy()
+			tracerLine:Remove()
+			trail:Destroy()
+			return
+		end
+
+		local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if playerPosition then
+			local distance = (playerPosition.Position - Part.Position).Magnitude
+			esplabelfr.Text = string.format(Text .. ": %.2f", distance)
+
+			local headPosition = Part.Position + Vector3.new(0, Part.Size.Y / 2, 0)
+			local screenPosition, onScreen = camera:WorldToScreenPoint(headPosition)
+
+			if onScreen or playerPosition.Position.Y > Part.Position.Y then
+				esp.Adornee = Part
+				esp.Enabled = true
+				box.Adornee = Part
+				box.Visible = true
+
+				-- Update tracer line points
+				local tracerStart = camera:WorldToViewportPoint(player.Character.Head.Position)
+				local tracerEnd = camera:WorldToViewportPoint(Part.Position)
+				tracerLine.From = Vector2.new(tracerStart.X, tracerStart.Y)
+				tracerLine.To = Vector2.new(tracerEnd.X, tracerEnd.Y)
+				tracerLine.Color = TracerColor
+				tracerLine.Thickness = TracerWidth-- Adjust the thickness of the line (increased from 1)
+				tracerLine.Visible = not TrailMode
+
+				-- Update trail
+				trail.Attachment1 = Part.Attachment
+				trail.Lifetime = 0.3
+				trail.Enabled = TrailMode
+				trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+				trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+			else
+				esp.Enabled = false
+				box.Visible = false
+				tracerLine.Visible = false
+				trail.Enabled = false
+			end
+		else
+			esp.Enabled = false
+			box.Visible = false
+			tracerLine.Visible = false
+			trail.Enabled = false
+		end
+	end
+
+	RunService.RenderStepped:Connect(updateesplabelfr)
+end
+
+
+local function noclip()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v:IsA"Part" then
+			v.CanCollide = false0
+		end
+	end
+end
+
+--game:GetService("Workspace").Lights.Light.Switch.Detector
+
+local function FullBright()
+	while wait() do
+		local Lighting = game:GetService("Lighting")
+		Lighting.Brightness = 2
+		Lighting.ClockTime = 14
+		Lighting.FogEnd = 100000
+		Lighting.GlobalShadows = false
+		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+	end
+end
+
+
+local redzlib = loadstring(game:HttpGet("https://pastebin.com/raw/ES4EnW6Z"))()
+
+local Window = redzlib:MakeWindow({
+  Title = "伐木大亨2合集",
+  SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
+  SaveFolder = "Redz Config"
+})
+local Tab = Window:MakeTab({"传送", "cool"})
+
+Tab:AddButton({
+	Name = "火木",
+	Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1615.8934326171875, 622.9998779296875, 1086.1234130859375)       
+	end
+})
+Tab:AddButton({
+	Name = "画室",
+	Callback = function()
+	     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5241.55810546875, -166.00003051757812, 709.5656127929688)
+	end
+})                                            
+Tab:AddButton({
+	Name = "幻影木",
+	Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-56.28166198730469, -213.13137817382812, -1357.8018798828125)       
+   end                                                             
+})                                                        
+Tab:AddButton({
+	Name = "木材反斗城",
+	Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(252.31906127929688, 2.9999992847442627, 56.9854850769043)         
+   end                                                        
+})      
+Tab:AddButton({
+	Name = "冰木",
+	Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1522.8817138671875, 412.3657531738281, 3277.71826171875)             
+  end                                                             
+})      
+Tab:AddButton({
+	Name = "椰子木",
+	Callback = function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2615.709228515625, -5.899986743927002, -21.30138397216797)              
+end                                            
+})          
+
+local Tab = Window:MakeTab({"脚本", "cool"})
+
+Tab:AddButton({
+	Name = "汉化版",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaoYunCN/UWU/main/LuaWare.lua", true))()
+end
+})
+Tab:AddButton({
+	Name = "免费白",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/CloudX-ScriptsWane/ScriptsDache/main/%E4%BC%90%E6%9C%A8%E5%A4%A7%E4%BA%A822.lua", true))()
+end
+})
+Tab:AddButton({
+	Name = "xgo破解版",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E4%BC%90%E6%9C%A8%E5%A4%A7%E4%BA%A82"))()
+end
+})
+Tab:AddButton({
+	Name = "LuaWare V4.3",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/frencaliber/scriptsstorage/main/LumberTycoonLW"))()
+end
+})
+Tab:AddButton({
+	Name = "Butter",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Butterisgood/Butter/main/timber-obfuscated.lua"))()
+end
+})
+Tab:AddButton({
+	Name = "lnterject",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Interject.lua"))()
+end
+})
