@@ -156,15 +156,7 @@ local Window = redzlib:MakeWindow({
 local Tab = Window:MakeTab({"内置", "cool"})
 
 local Section = Tab:AddSection({
-	Name = "小go内置"
-})
-Tab:AddTextbox({
-	Name = "腰角高  可在空中移动 设置高度",
-	Default = " ",
-	TextDisappear = false,
-	Callback = function(phh)
-		game.Players.LocalPlayer.Character.Humanoid.HipHeight = phh
-	end	  
+	Name = "小go内置  内容较少"
 })
 
 Tab:AddButton({
