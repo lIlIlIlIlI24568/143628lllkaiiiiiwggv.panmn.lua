@@ -408,7 +408,7 @@ Tab:AddToggle({
         end
 	end    
 })
-   Tab:AddToggle({
+Tab:AddToggle({
 	Name = "自动抽奖",
 	Default = false,
 	Callback = function(Value)
@@ -423,7 +423,7 @@ Tab:AddToggle({
             Egg()
           end
     })
-    Tab:AddDropdown({
+Tab:AddDropdown({
 	Name = "选择晶体",
 	Default = "Yellow Crystal",
 	Options = {黄色晶体", "蓝色晶体", "红色晶体", "闪电晶体", "欧洲晶体", "熔岩晶体", "雪晶", "电动传说晶体", "空间晶体", "外星晶体", "电晶", "沙漠水晶"},
@@ -431,15 +431,15 @@ Tab:AddToggle({
 		getgenv().Egg = Value
 	end    
     })
-    
-   Tab:AddToggle({
-	    Name = "自动出售",
-	    Default = false,
-	    Callback = function(Value)
-		    getgenv().BugPet = Value
-		    BugPet()
+Tab:AddToggle({
+	Name = "自动出售",
+	Default = false,
+	Callback = function(Value)
+	getgenv().BugPet = Value
+	       BugPet()
 	    end    
     })
+
 local Section = Tab:AddSection({
 	Name = "传送城市和赛道"
 })
@@ -556,4 +556,4 @@ Tab:AddButton({
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/TheScriptPirate/ProjectOmega/main/ProjectOmegaLoader.lua"))()
     end
-}
+})
