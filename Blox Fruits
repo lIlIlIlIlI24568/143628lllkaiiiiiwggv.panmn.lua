@@ -1,0 +1,289 @@
+local ESPLib = {}
+
+function ESPLib:CreateESPTag(params)
+	local RunService = game:GetService("RunService")
+	local player = game.Players.LocalPlayer
+	local camera = game:GetService("Workspace").CurrentCamera
+
+	local Text = params.Text
+	local Part = params.Part
+	local TextSize = params.TextSize
+	local TextColor = params.TextColor
+	local BoxColor = params.BoxColor
+	local TracerColor = params.TracerColor or Color3.new(255, 255, 255)
+	local TracerWidth = params.TracerWidth or 3
+	local TrailMode = params.TrailMode or false
+	local TrailColor = params.TrailColor or {Color3.new(255, 0, 0)} 
+	local TrailWidth = params.TrailWidth or {2}
+
+	if #TrailColor < 2 then
+		TrailColor[2] = TrailColor[1]
+	end
+
+	if #TrailWidth < 2 then
+		TrailWidth[2] = TrailWidth[1] -- Duplicate the width if only one is provided
+	end
+
+	local esp = Instance.new("BillboardGui")
+	esp.Name = "esp"
+	esp.Size = UDim2.new(0, 200, 0, 50)
+	esp.StudsOffset = Vector3.new(0, Part.Size.Y + 2, 0) -- Adjusted offset for the label above the head
+	esp.Adornee = Part
+	esp.Parent = Part
+	esp.AlwaysOnTop = true
+
+	local esplabelfr = Instance.new("TextLabel")
+	esplabelfr.Name = "esplabelfr"
+	esplabelfr.Size = UDim2.new(1, 0, 0, 70)
+	esplabelfr.BackgroundColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextColor3 = TextColor or Color3.fromRGB(255, 255, 255)
+	esplabelfr.BackgroundTransparency = 1
+	esplabelfr.TextStrokeTransparency = 0
+	esplabelfr.TextStrokeColor3 = Color3.new(0, 0, 0)
+	esplabelfr.TextSize = TextSize
+	esplabelfr.TextScaled = false
+	esplabelfr.Font = "Arcade"
+	esplabelfr.Parent = esp
+
+	local box = Instance.new("BoxHandleAdornment")
+	box.Name = "box"
+	box.Size = Part.Size + Vector3.new(0.5, 0.5, 0.5)
+	box.Adornee = Part
+	box.AlwaysOnTop = true
+	box.Transparency = 0.6
+	box.Color3 = BoxColor or Color3.new(0, 0, 255)
+	box.ZIndex = 0
+	box.Parent = Part
+
+	local tracerLine = Drawing.new("Line")
+	tracerLine.Visible = false
+
+	local trail = Instance.new("Trail")
+	trail.Texture = "rbxassetid://188166667"
+	trail.Attachment0 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Torso)
+	trail.Attachment1 = Instance.new("Attachment", Part)
+	trail.Enabled = false
+	trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+	trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+	trail.Parent = Part
+	trail.Lifetime = 0.5
+
+	local function updateesplabelfr()
+		if not Part or not Part:IsA("BasePart") or not Part.Parent then
+			-- Part no longer exists, delete ESP elements
+			esp:Destroy()
+			tracerLine:Remove()
+			trail:Destroy()
+			return
+		end
+
+		local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if playerPosition then
+			local distance = (playerPosition.Position - Part.Position).Magnitude
+			esplabelfr.Text = string.format(Text .. ": %.2f", distance)
+
+			local headPosition = Part.Position + Vector3.new(0, Part.Size.Y / 2, 0)
+			local screenPosition, onScreen = camera:WorldToScreenPoint(headPosition)
+
+			if onScreen or playerPosition.Position.Y > Part.Position.Y then
+				esp.Adornee = Part
+				esp.Enabled = true
+				box.Adornee = Part
+				box.Visible = true
+
+				-- Update tracer line points
+				local tracerStart = camera:WorldToViewportPoint(player.Character.Head.Position)
+				local tracerEnd = camera:WorldToViewportPoint(Part.Position)
+				tracerLine.From = Vector2.new(tracerStart.X, tracerStart.Y)
+				tracerLine.To = Vector2.new(tracerEnd.X, tracerEnd.Y)
+				tracerLine.Color = TracerColor
+				tracerLine.Thickness = TracerWidth-- Adjust the thickness of the line (increased from 1)
+				tracerLine.Visible = not TrailMode
+
+				-- Update trail
+				trail.Attachment1 = Part.Attachment
+				trail.Lifetime = 0.3
+				trail.Enabled = TrailMode
+				trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
+				trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
+			else
+				esp.Enabled = false
+				box.Visible = false
+				tracerLine.Visible = false
+				trail.Enabled = false
+			end
+		else
+			esp.Enabled = false
+			box.Visible = false
+			tracerLine.Visible = false
+			trail.Enabled = false
+		end
+	end
+
+	RunService.RenderStepped:Connect(updateesplabelfr)
+end
+
+
+local function noclip()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v:IsA"Part" then
+			v.CanCollide = false0
+		end
+	end
+end
+
+--game:GetService("Workspace").Lights.Light.Switch.Detector
+
+local function FullBright()
+	while wait() do
+		local Lighting = game:GetService("Lighting")
+		Lighting.Brightness = 2
+		Lighting.ClockTime = 14
+		Lighting.FogEnd = 100000
+		Lighting.GlobalShadows = false
+		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+	end
+end
+
+
+local redzlib = loadstring(game:HttpGet("https://pastebin.com/raw/ES4EnW6Z"))()
+
+local Window = redzlib:MakeWindow({
+  Title = "Blox Fruits合集",
+  SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
+  SaveFolder = "Redz Config"
+})
+local Tab = Window:MakeTab({"脚本", "cool"})
+
+Tab:AddButton({
+	Name = "无密钥",
+	Callback = function()
+	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "Lunar X  Hudb",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/NguyenLam2504/anhyeuem/main/bloxshitfarm.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "Project-Spectrum9.0",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xZPUHigh/Project-Spectrum/main/SpectrumX.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "汉化版",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/XiaoYunCN/Xiao-Yun-UWU/main/%E6%B5%B7%E8%B4%BC%E7%8E%8Bbf.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "Min_XT_V2",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/Min_XT_V2_.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "Project-Spectrum 9.0",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xZPUHigh/Project-Spectrum/main/SpectrumX.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "mbmxhub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/m1M-Plqer819/any/main/mbmxhub/0135"))()
+		end
+})
+Tab:AddButton({
+	Name = "Master Hub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/onepicesenpai/onepicesenpai/main/onichanokaka"))()
+		end
+})
+Tab:AddButton({
+	Name = "RadonHub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/x2-Neptune/RadonHub/main/Script.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "MinGaming Hub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Basicallyybeta/mingane/main/MinGamingNew.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "Fai-Fao",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/PNguyen0199/Script/main/Fai-Fao.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "菜单版",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Bebo-Mods/BeboScripts/main/MichaelZombies.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "Tiger-Hub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/plutoguy/Tiger-Hub/main/bloxfruits.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "Speed-Hub-X",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"))()
+		end
+})
+Tab:AddButton({
+	Name = "Steep1",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/Steep1/main/Steps121"))()
+		end
+})
+Tab:AddButton({
+	Name = "需要密钥",
+	Callback = function()
+	loadstring(game:HttpGet("https://nicuse.xyz/BloxFruits.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥（God Hub）",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥2",
+	Callback = function()
+	loadstring(game:HttpGet("https://lua-library.btteam.net/script-auth.txt"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥3 ",
+	Callback = function()
+	loadstring(game:HttpGet("https://pastefy.app/xOYJEULU/raw"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥HohoV2 ",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HohoV2/main/BloxFruit/BloxFruitTEST_ONLY.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥All-Script ",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/DookDekDEE/All-Script/main/bf.lua"))()
+	end
+})
+Tab:AddButton({
+	Name = "需要密钥MTriet HUb ",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Minhtriettt/Free-Script/main/MTriet-Hub.lua"))()
+	end
+})
