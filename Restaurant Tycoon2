@@ -155,9 +155,7 @@ local Window = redzlib:MakeWindow({
 })
 local Tab = Window:MakeTab({"内置", "cool"})
 
-local Section = Tab:AddSection({
-	Name = "小go内置 内容较少"
-})
+
 
 local Tab = Window:MakeTab({"脚本", "cool"})
 
