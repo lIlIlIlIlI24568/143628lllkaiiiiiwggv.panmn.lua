@@ -176,6 +176,7 @@ local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or
 
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/OneProtocol/Project/main/Loader", true))() 
+end
 }) 
 Tab:AddButton({
 	Name = "xgo 汉化版菜单",
