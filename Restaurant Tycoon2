@@ -153,25 +153,11 @@ local Window = redzlib:MakeWindow({
   SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
   SaveFolder = "Redz Config"
 })
-
 local Tab = Window:MakeTab({"脚本", "cool"})
 
 Tab:AddButton({
-	Name = "小go",
-	Callback = function()
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E9%A4%90%E5%8E%85%E5%A4%A7%E4%BA%A82")))()
-end
-})
-Tab:AddButton({
-	Name = "zeld  Hub",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/iz037/Zeld-Hub/main/Script/Restaurant%20Tycoon%202.lua"))()
-end
-})
-
-Tab:AddButton({
-	Name = "xgo 汉化版菜单",
-	Callback = function()
-loadstring(game:HttpGet("https://pastebin.com/raw/EbdwRb0s"))()
-end
+    Name ="小go汉化",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/xgomn/zxcvb/refs/heads/main/bad%20undergroundwar%202"))()
+    end
 })
