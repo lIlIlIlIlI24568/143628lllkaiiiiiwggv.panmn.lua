@@ -210,8 +210,7 @@ Tab:AddButton({
 end
 })
 local Section = Tab:AddSection({
-	Name = "幻影是机器人的一个漏洞，来自最强的战场。幻影很OP！！！！试试看！
-🕊️小心，这个剧本有很大的滞后性=没有必要打任何人🕊️"
+	Name = "幻影是机器人的一个漏洞 幻影很OP！！试试看！🕊️小心，这个剧本有很大的滞后性=没有必要打任何人🕊️"
 })
 Tab:AddButton({
     Name ="幻影op",
