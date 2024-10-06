@@ -1,180 +1,23 @@
-local ESPLib = {}
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E5%BD%A9%E8%99%B9ui", true))()
+    local window = library:new("The rake合集")
+    local creds = window:Tab("关于", "6035145364")
+    local bin = creds:section("信息", true)
+    bin:Label("你的注入器:" .. identifyexecutor())
+    bin:Label("更新9月18日")
+    
+local creds = window:Tab("the rake", "16060333448")
+local credits = creds:section("🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️", true)
 
-function ESPLib:CreateESPTag(params)
-	local RunService = game:GetService("RunService")
-	local player = game.Players.LocalPlayer
-	local camera = game:GetService("Workspace").CurrentCamera
-
-	local Text = params.Text
-	local Part = params.Part
-	local TextSize = params.TextSize
-	local TextColor = params.TextColor
-	local BoxColor = params.BoxColor
-	local TracerColor = params.TracerColor or Color3.new(255, 255, 255)
-	local TracerWidth = params.TracerWidth or 3
-	local TrailMode = params.TrailMode or false
-	local TrailColor = params.TrailColor or {Color3.new(255, 0, 0)} 
-	local TrailWidth = params.TrailWidth or {2}
-
-	if #TrailColor < 2 then
-		TrailColor[2] = TrailColor[1]
-	end
-
-	if #TrailWidth < 2 then
-		TrailWidth[2] = TrailWidth[1] -- Duplicate the width if only one is provided
-	end
-
-	local esp = Instance.new("BillboardGui")
-	esp.Name = "esp"
-	esp.Size = UDim2.new(0, 200, 0, 50)
-	esp.StudsOffset = Vector3.new(0, Part.Size.Y + 2, 0) -- Adjusted offset for the label above the head
-	esp.Adornee = Part
-	esp.Parent = Part
-	esp.AlwaysOnTop = true
-
-	local esplabelfr = Instance.new("TextLabel")
-	esplabelfr.Name = "esplabelfr"
-	esplabelfr.Size = UDim2.new(1, 0, 0, 70)
-	esplabelfr.BackgroundColor3 = Color3.new(0, 0, 0)
-	esplabelfr.TextColor3 = TextColor or Color3.fromRGB(255, 255, 255)
-	esplabelfr.BackgroundTransparency = 1
-	esplabelfr.TextStrokeTransparency = 0
-	esplabelfr.TextStrokeColor3 = Color3.new(0, 0, 0)
-	esplabelfr.TextSize = TextSize
-	esplabelfr.TextScaled = false
-	esplabelfr.Font = "Arcade"
-	esplabelfr.Parent = esp
-
-	local box = Instance.new("BoxHandleAdornment")
-	box.Name = "box"
-	box.Size = Part.Size + Vector3.new(0.5, 0.5, 0.5)
-	box.Adornee = Part
-	box.AlwaysOnTop = true
-	box.Transparency = 0.6
-	box.Color3 = BoxColor or Color3.new(0, 0, 255)
-	box.ZIndex = 0
-	box.Parent = Part
-
-	local tracerLine = Drawing.new("Line")
-	tracerLine.Visible = false
-
-	local trail = Instance.new("Trail")
-	trail.Texture = "rbxassetid://188166667"
-	trail.Attachment0 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Torso)
-	trail.Attachment1 = Instance.new("Attachment", Part)
-	trail.Enabled = false
-	trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
-	trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
-	trail.Parent = Part
-	trail.Lifetime = 0.5
-
-	local function updateesplabelfr()
-		if not Part or not Part:IsA("BasePart") or not Part.Parent then
-			-- Part no longer exists, delete ESP elements
-			esp:Destroy()
-			tracerLine:Remove()
-			trail:Destroy()
-			return
-		end
-
-		local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-		if playerPosition then
-			local distance = (playerPosition.Position - Part.Position).Magnitude
-			esplabelfr.Text = string.format(Text .. ": %.2f", distance)
-
-			local headPosition = Part.Position + Vector3.new(0, Part.Size.Y / 2, 0)
-			local screenPosition, onScreen = camera:WorldToScreenPoint(headPosition)
-
-			if onScreen or playerPosition.Position.Y > Part.Position.Y then
-				esp.Adornee = Part
-				esp.Enabled = true
-				box.Adornee = Part
-				box.Visible = true
-
-				-- Update tracer line points
-				local tracerStart = camera:WorldToViewportPoint(player.Character.Head.Position)
-				local tracerEnd = camera:WorldToViewportPoint(Part.Position)
-				tracerLine.From = Vector2.new(tracerStart.X, tracerStart.Y)
-				tracerLine.To = Vector2.new(tracerEnd.X, tracerEnd.Y)
-				tracerLine.Color = TracerColor
-				tracerLine.Thickness = TracerWidth-- Adjust the thickness of the line (increased from 1)
-				tracerLine.Visible = not TrailMode
-
-				-- Update trail
-				trail.Attachment1 = Part.Attachment
-				trail.Lifetime = 0.3
-				trail.Enabled = TrailMode
-				trail.Color = ColorSequence.new(TrailColor[1], TrailColor[2])
-				trail.WidthScale = NumberSequence.new(TrailWidth[1], TrailWidth[2])
-			else
-				esp.Enabled = false
-				box.Visible = false
-				tracerLine.Visible = false
-				trail.Enabled = false
-			end
-		else
-			esp.Enabled = false
-			box.Visible = false
-			tracerLine.Visible = false
-			trail.Enabled = false
-		end
-	end
-
-	RunService.RenderStepped:Connect(updateesplabelfr)
-end
-
-
-local function noclip()
-	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-		if v:IsA"Part" then
-			v.CanCollide = false0
-		end
-	end
-end
-
---game:GetService("Workspace").Lights.Light.Switch.Detector
-
-local function FullBright()
-	while wait() do
-		local Lighting = game:GetService("Lighting")
-		Lighting.Brightness = 2
-		Lighting.ClockTime = 14
-		Lighting.FogEnd = 100000
-		Lighting.GlobalShadows = false
-		Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-	end
-end
-
-
-local redzlib = loadstring(game:HttpGet("https://pastebin.com/raw/ES4EnW6Z"))()
-
-local Window = redzlib:MakeWindow({
-  Title = "The rake合集",
-  SubTitle = "小go🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️",
-  SaveFolder = "Redz Config"
-})
-local Tab = Window:MakeTab({"The rake", "cool"})
-
-Tab:AddButton({
-    Name ="不能与同ui启动，否则无法打开",
-    Callback = function()
+credits:Button("不能与同ui启动，否则无法打开",function()
 do local v0=tonumber;local v1=string.byte;local v2=string.char;local v3=string.sub;local v4=string.gsub;local v5=string.rep;local v6=table.concat;local v7=table.insert;local v8=getfenv or function()return _ENV;end;local v9=setmetatable;local v10=pcall;local v11=select;local v12=unpack or table.unpack;local v13=tonumber;local function v14(v15,v16)local v17=0;local v18;local v19;local v20;local v21;local v22;local v23;local v24;local v25;local v26;local v27;local v28;local v29;while true do if (v17==0) then v18=1;v19=nil;v15=v4(v3(v15,5),"..",function(v30)if (v1(v30,2)==79) then v19=v0(v3(v30,1,1));return "";else local v65=0;local v66;while true do if (v65==0) then v66=v2(v0(v30,16));if v19 then local v79=v5(v66,v19);v19=nil;return v79;else return v66;end break;end end end end);v20=nil;v17=1;end if (v17==4) then v27=nil;function v27(...)return {...},v11("#",...);end v28=nil;function v28()local v38=0 -0;local v39;local v40;local v41;local v42;local v43;local v44;local v45;while true do if (v38==(5 -2)) then v45=nil;while true do local v73=1633 -(37 + 1596);while true do if (v73~=1) then else if (v39==(1885 -(1642 + 242))) then v44=v23();v45={};for v99=1,v44 do local v100=0;local v101;local v102;local v103;while true do if (v100==(0 + 0)) then local v108=0;while true do if (v108==(1105 -(527 + 577))) then v100=1;break;end if (v108==(0 -0)) then v101=1480 -(1200 + 280);v102=nil;v108=1;end end end if (v100==(1670 -(1130 + 539))) then v103=nil;while true do if (v101==(1 -0)) then if (v102==(3 -2)) then v103=v21()~=(1338 -(900 + 438));elseif (v102==(1257 -(78 + 1177))) then v103=v24();elseif (v102==3) then v103=v25();end v45[v99]=v103;break;end if (v101==0) then local v110=0 -0;local v111;local v112;while true do if (v110~=(3 -2)) then else while true do if (v111==(0 -0)) then v112=309 -(77 + 232);while true do if (v112~=0) then else local v130=0;while true do if (v130~=0) then else v102=v21();v103=nil;v130=1115 -(53 + 1061);end if (v130==(1 + 0)) then v112=1246 -(140 + 1105);break;end end end if (v112==(3 -2)) then v101=1 -0;break;
-end
-})
-Tab:AddButton({
-    Name ="LynX",
-    Callback = function()
+end)
+credits:Button("rake", function()   loadstring(game:HttpGet("https://raw.githubusercontent.com/Unknownlodfc/Zephyr/refs/heads/main/Zephyr%20%7C%20The%20Rake%20Remastered"))()end)      
+credits:Button("LynX", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ScriptsLynX/LynX/main/KeySystem/Loader.lua"))()
-    end
-})
-Tab:AddButton({
-	Name = "龙 要用的话必须第1个，否则无效",
-	Callback = function()
+   end)
+credits:Button("龙 要用的话必须第1个，否则无效", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/nahida-cn/Roblox/main/long"))()
-	end
-})
-Tab:AddButton({
-    Name ="pc端（手机无法使用）",
-    Callback = function()
+	end)
+credits:Button("pc端（手机无法使用）", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/RealZzHub/MainV2/main/Main.lua"))()
-end}
+end)
