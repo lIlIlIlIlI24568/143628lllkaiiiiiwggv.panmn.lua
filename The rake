@@ -7,6 +7,28 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFA
 
 local creds = window:Tab("the rake", "16060333448")
 local credits = creds:section("🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️", true)
+credits:Button(	 "穿墙",	 false, function(Value)
+ if Value then
+  Noclip = true
+   Stepped = game.RunService.Stepped:Connect(function()
+    if Noclip == true then
+     for a, b in pairs(game.Workspace:GetChildren()) do
+       if b.Name == game.Players.LocalPlayer.Name then
+         for i, v in pairs(game.Workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+          if v:IsA("BasePart") then
+           v.CanCollide = false
+            end
+           end
+          end
+         end
+        else
+       Stepped:Disconnect()
+      end
+     end)
+    else
+   Noclip = false
+  end
+ end)
 credits:Button( "无限跳", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E6%97%A0%E9%99%90%E8%B7%B3", true))()
 	end)
