@@ -7,7 +7,7 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFA
 
 local creds = window:Tab("the rake", "16060333448")
 local credits = creds:section("🕊️🕊️🕊️🕊️🕊️🕊️🕊️🕊️", true)
-credits:Button( "无限跳", false, function(Value)
+credits:Button( "无限跳", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E6%97%A0%E9%99%90%E8%B7%B3", true))()
 	end)
  credits:Button( "踏空行走", function()
