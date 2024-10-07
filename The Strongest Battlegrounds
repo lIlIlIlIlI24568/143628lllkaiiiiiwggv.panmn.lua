@@ -162,6 +162,12 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
+    Name ="特效脚本 最强的英雄1",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Tp%20exploit%20saitama%20to%20jun"))()
+end
+})
+Tab:AddButton({
     Name ="特效脚本 最强的英雄",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/skibiditoiletfan2007/BaldyToSorcerer/main/Latest.lua"))()
