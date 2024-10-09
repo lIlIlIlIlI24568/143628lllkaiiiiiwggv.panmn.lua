@@ -154,10 +154,3 @@ local Window = redzlib:MakeWindow({
   SaveFolder = "Redz Config"
 })
 local Tab = Window:MakeTab({"Blade Ball", "cool"})
-
-
-Tab:AddButton({
-	Name = "SCOUTHUB",
-	Callback = function()
-       loadstring(game:HttpGet(("https://raw.githubusercontent.com/Kozukiremboukk/Aqui-mesml/main/blades")))()
-end})
