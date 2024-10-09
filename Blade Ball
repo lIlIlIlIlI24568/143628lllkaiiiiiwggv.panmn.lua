@@ -192,25 +192,31 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
-	Name = "🕊️",
+	Name = "1",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Alexisisback/Universall/refs/heads/main/Testblade.lua"))()
 end
 Tab:AddButton({
-	Name = "🕊️🕊️",
+	Name = "2",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/TouhouProjects/TouhouProject/main/NewEra.lua"))()
 end
 })
 Tab:AddButton({
-	Name = "🕊️🕊️🕊️",
+	Name = "3",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/songolasangkatangw/memek/main/adakontolsamamemek.lua"))()
 end
 })
 Tab:AddButton({
-	Name = "🕊️🕊️🕊️🕊️这个好用",
+	Name = "4这个好用",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
+end
+})
+Tab:AddButton({
+	Name = "SCOUTHUB",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Kozukiremboukk/Aqui-mesml/main/blades"))()
 end
 })
