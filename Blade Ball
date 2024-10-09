@@ -214,3 +214,9 @@ Tab:AddButton({
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
 end
 })
+Tab:AddButton({
+	Name = "SCOUTHUB",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Kozukiremboukk/Aqui-mesml/main/blades"))()
+end
+})
