@@ -182,6 +182,7 @@ end
 Tab:AddButton({
 	Name = "红圈格挡",
 	Callback = function()
+        getgenv().visualizer = true
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/1f0yt/community/main/RedCircleBlock"))()
 end
 })
