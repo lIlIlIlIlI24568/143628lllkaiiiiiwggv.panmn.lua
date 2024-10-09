@@ -193,25 +193,25 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
-	Name = "1",
+	Name = "LUNAX Hub",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Alexisisback/Universall/refs/heads/main/Testblade.lua"))()
 end
 })
 Tab:AddButton({
-	Name = "2",
+	Name = "touhou",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/TouhouProjects/TouhouProject/main/NewEra.lua"))()
 end
 })
 Tab:AddButton({
-	Name = "3",
+	Name = "Gpllp",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/songolasangkatangw/memek/main/adakontolsamamemek.lua"))()
 end
 })
 Tab:AddButton({
-	Name = "4这个好用",
+	Name = "FJJ  v2.5这个好用",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
 end
