@@ -191,3 +191,26 @@ Tab:AddButton({
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
 end
 })
+Tab:AddButton({
+	Name = "🕊️",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Alexisisback/Universall/refs/heads/main/Testblade.lua"))()
+end
+Tab:AddButton({
+	Name = "🕊️🕊️",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/TouhouProjects/TouhouProject/main/NewEra.lua"))()
+end
+})
+Tab:AddButton({
+	Name = "🕊️🕊️🕊️",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/songolasangkatangw/memek/main/adakontolsamamemek.lua"))()
+end
+})
+Tab:AddButton({
+	Name = "🕊️🕊️🕊️🕊️这个好用",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
+end
+})
