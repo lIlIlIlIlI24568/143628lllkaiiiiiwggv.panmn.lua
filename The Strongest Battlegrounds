@@ -198,6 +198,12 @@ Tab:AddButton({
 end
 })
 Tab:AddButton({
+    Name ="特效脚本 最强的英雄 无移动集 狂野的精神",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Qaiddanial2904/ROBLOX-FREAKY-GOJO-REAL/refs/heads/main/SANS%20%5BREDACTED%5D"))()
+end
+})
+Tab:AddButton({
     Name ="特效脚本 刀锋大师",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/zyrask/Nexus-Base/main/atomic-blademaster%20to%20sukuna"))()
