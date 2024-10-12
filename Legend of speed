@@ -452,6 +452,12 @@ Tab:AddButton({
 local Tab = Window:MakeTab({"脚本", "cool"})
 
 Tab:AddButton({
+    Name ="xgo极速",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E6%9E%81%E9%80%9F%E4%BC%A0%E5%A5%87.lua"))()
+    end
+})
+Tab:AddButton({
     Name ="超级简洁ui",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/TtmScripter/GoodScript/main/LegendOfSpeed(Chinese)"))()
