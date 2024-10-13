@@ -156,12 +156,6 @@ local Window = redzlib:MakeWindow({
 local Tab = Window:MakeTab({"Blade Ball", "cool"})
 
 Tab:AddButton({
-	Name = "Ain Hub",
-	Callback = function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-a-i-n/bladeball-updated/refs/heads/main/Ain%20Hub"))()
-end
-})
-Tab:AddButton({
 	Name = "Bake hub v0.1.1",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/BakaIsNoname/Releases_bladeball_bakahub/main/Blade"))()
@@ -190,6 +184,12 @@ Tab:AddButton({
 	Name = "Auto  parry  v2.55",
 	Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/scripts/Loader.lua"))()
+end
+})
+Tab:AddButton({
+	Name = "Ain hub",
+	Callback = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-a-i-n/bladeball-updated/refs/heads/main/bladeball-autoparry-remote"))()
 end
 })
 Tab:AddButton({
