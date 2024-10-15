@@ -154,7 +154,12 @@ local Window = redzlib:MakeWindow({
   SaveFolder = "Redz Config"
 })
 local Tab = Window:MakeTab({"脚本", "cool"})
-
+Tab:AddButton({
+    Name ="GOjo",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FoiLONE/Gojo-Moveset-TSB-by-Raga/main/1725724019929-Gojo.txt"))()
+end
+})
 Tab:AddButton({
     Name ="KJ",
     Callback = function()
