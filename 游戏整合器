@@ -1,0 +1,106 @@
+local scrName;
+
+game:GetService("StarterGui"):SetCore("SendNotification", {Title = "小go搜索中…",Text = "请稍候...尚未重新执行，或者如果需要很长时间已经重新执行",Duration = 10})
+game:GetService("StarterGui"):SetCore("SendNotification", {Title = "脚本",Text = "检查键后，有时您必须重新执行以使脚本显示",Duration = 10})
+
+if game.GameId == 4367208330 then  
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Pressure';
+elseif game.GameId == 1235188606 then 
+	scrName = 'https://raw.githubusercontent.com/Yumiara/Python/main/DragonAdventure.py';
+elseif game.GameId == 2440500124 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/DOORS';
+elseif game.GameId == 2294168059 then
+	scrName = 'https://raw.githubusercontent.com/Yumiara/Python/refs/heads/main/TheMimic.py';
+elseif game.GameId == 1000233041 then
+	scrName = 'https://raw.githubusercontent.com/Yumiara/Python/refs/heads/main/SCP3008.py';
+elseif game.GameId == 3624423521 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/zxcvb/refs/heads/main/bad%20undergroundwar%202';
+elseif game.GameId == 3741075732 then
+	scrName = 'https://raw.githubusercontent.com/BongCloudMaster/CHAIN/main/scrap%20esp.lua';
+elseif game.GameId == 1268927906 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Muscle%20Legends';
+elseif game.GameId == 1415710834 then
+	scrName = 'https://gist.githubusercontent.com/NovaVanity/131e258977e50e1ec0184c72818b8bfd/raw';
+elseif game.GameId == 1335695570 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Ninja%20Legends';
+elseif game.GameId == 1119466531 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Legend%20of%20speed';
+elseif game.GameId == 994732206 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Blox%20Fruits';
+elseif game.GameId == 6143226737 then
+	scrName = 'https://raw.githubusercontent.com/Vylo-dev/SoulSociety/main/Boot%20Race%20Sim';
+elseif game.GameId == 2471084 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Lumber%20Tycoon%202';
+elseif game.GameId == 3808081382 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/The%20Strongest%20Battlegrounds';
+elseif game.GameId == 1214576306 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Restaurant%20Tycoon2';
+elseif game.GameId == 1526814825 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/War%20Tycoon';
+elseif game.GameId == 847722000 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/The%20rake';
+elseif game.GameId == 5800312217 then
+	scrName = 'https://pastebin.com/raw/3KV8KYNG';
+elseif game.GameId == 6466404775 then
+	scrName = 'https://pastebin.com/raw/DAeFR7qv';
+elseif game.GameId == 4775716170 then
+	scrName = 'https://pastefy.app/b6lgDkxK/raw';
+elseif game.GameId == 911750776 then
+	scrName = 'https://pastebin.com/raw/YiBfCEdJ';
+elseif game.GameId == 445448798 then
+	scrName = 'https://pastebin.com/raw/LWtSXnRk';
+elseif game.GameId == 6592224793 then
+	scrName = 'https://pastebin.com/raw/UQurmA2F';
+elseif game.GameId == 4417057922 then
+	scrName = 'https://pastebin.com/raw/Kn7UkFW5';
+elseif game.GameId == 6537318971 then
+	scrName = 'https://github.com/xgomn/111111/raw/refs/heads/main/%E5%93%A5%E5%93%A5%E5%93%A5%E5%93%A5';
+elseif game.GameId == 4777817887 then
+	scrName = 'https://raw.githubusercontent.com/xgomn/pamn/refs/heads/main/Blade%20Ball';
+elseif game.GameId == 5500599119 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/AquaRacer.lua';
+elseif game.GameId == 6196633103 then
+	scrName = 'https://gist.githubusercontent.com/ExploiterGuy/71a2aafd533aff6ec8a15d261f08bde7/raw/e9a4950b2ee1b338b8941207c484bd8f9f8081b3/Find%2520the%2520Inside%2520Out%25202%2520%255BOBSF%255D';
+elseif game.GameId == 6170013953 then
+	scrName = 'https://raw.githubusercontent.com/ZenHub103/Zen-Hub-/refs/heads/main/Zen%20Hubs';
+elseif game.GameId == 1430007363 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E6%81%90%E6%80%96%E8%80%81%E5%A5%B6%E5%A5%B6%E5%A4%9A%E4%BA%BA%E6%B8%B8%E6%88%8F.lua';
+elseif game.GameId == 10384852727 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E6%81%90%E6%80%96%E8%80%81%E5%A5%B6%E5%A5%B6%E5%A4%9A%E4%BA%BA%E6%B8%B8%E6%88%8F.lua';
+elseif game.GameId == 4019583467 then
+	scrName = 'https://raw.githubusercontent.com/Bac0nHck/Scripts/main/BeNpcOrDie';
+elseif game.GameId == 170247232 then
+	scrName = 'https://pastebin.com/raw/FWqjpE3G';
+elseif game.GameId == 3997370929 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E5%83%B5%E5%B0%B8%E5%A4%A7%E4%BA%A8.lua';
+elseif game.GameId == 2851381018 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E5%87%BA%E7%A7%9F%E8%BD%A6%E5%8F%B8%E6%9C%BATaxi.lua';
+elseif game.GameId == 1512676568 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E6%B2%B3%E5%8C%97%E5%94%90%E5%8E%BF%20.lua';
+elseif game.GameId == 6279211894 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E5%BF%AB%E5%A2%9E%E9%87%8F%20.lua';
+elseif game.GameId == 4272959516 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E6%96%B0%E6%89%8B%E5%A4%A7%E4%BA%A8%20.lua';
+elseif game.GameId == 2033913602 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E5%95%86%E5%9C%BA%E5%A4%A7%E4%BA%A8%20.lua';
+elseif game.GameId == 3956729696 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20%E5%90%88%E5%B9%B6%E6%BB%B4%E7%AE%A1%20.lua';
+elseif game.GameId == 4221956550 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E5%B1%A0%E5%AE%B0%E5%9C%BA%5B%E6%81%90%E6%80%96%5D.lua';
+elseif game.GameId == 2783074114 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%E4%BF%9D%E5%A7%86%5B%E6%81%90%E6%80%96%5D.txt';
+elseif game.GameId == 3264293423 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgo%20Five%20Nights%20At%20Freddy%20s%20Doom%E5%BC%97%E9%9B%B7%E5%BE%B7%E7%9A%84%E5%8E%84%E8%BF%90.txt';
+elseif game.GameId == 1480782352 then
+	scrName = 'https://raw.githubusercontent.com/GTAFAW/goto/refs/heads/main/xgoVehicle%20Legends%F0%9F%9A%93CARS.lua';
+end;
+
+if scrName then
+	local source = game:HttpGetAsync(scrName);
+	local Env = loadstring(source);
+	
+	Env();
+else
+	game.Players.LocalPlayer:Kick("小go没有你想玩的脚本，再见🕊️");
+end;
+end
