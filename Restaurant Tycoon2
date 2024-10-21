@@ -158,7 +158,7 @@ local Tab = Window:MakeTab({"脚本", "cool"})
 Tab:AddButton({
 	Name = "小go",
 	Callback = function()
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E9%A4%90%E5%8E%85%E5%A4%A7%E4%BA%A82")))()
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/xgomn/114514.IIjjjjiiiallloiia.xxxxg/refs/heads/main/%E9%A4%90%E5%8E%85%E5%A4%A7%E4%BA%A82")))()
 end
 })
 Tab:AddButton({
