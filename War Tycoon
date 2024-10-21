@@ -170,6 +170,6 @@ end
 Tab:AddButton({
     Name ="xgo战争大亨",
     Callback = function()
-    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GTAFAW/neilonmacedo153/refs/heads/main/%E6%88%98%E4%BA%89%E5%A4%A7%E4%BA%A8")))()
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/xgomn/114514.IIjjjjiiiallloiia.xxxxg/refs/heads/main/%E6%88%98%E4%BA%89%E5%A4%A7%E4%BA%A8")))()
 end
 })
