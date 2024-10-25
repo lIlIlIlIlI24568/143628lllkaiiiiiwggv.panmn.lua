@@ -155,6 +155,24 @@ local Window = redzlib:MakeWindow({
 })
 local Tab = Window:MakeTab({"脚本", "cool"})
 Tab:AddButton({
+    Name ="三个特效GuI",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Wi-sp/Limitless-legacy/refs/heads/main/GUI"))()
+end
+})
+Tab:AddButton({
+    Name ="一些很帅的英雄猎人动作",
+    Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/3msBRQXy"))()
+end
+})
+Tab:AddButton({
+    Name ="忘了叫啥也挺帅的",
+    Callback = function()
+    loadstring(game:HttpGet("https://pastefy.app/1m6k8kOE/raw"))()
+end
+})
+Tab:AddButton({
     Name ="GOjo",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/FoiLONE/Gojo-Moveset-TSB-by-Raga/main/1725724019929-Gojo.txt"))()
