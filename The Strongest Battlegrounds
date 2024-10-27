@@ -155,6 +155,18 @@ local Window = redzlib:MakeWindow({
 })
 local Tab = Window:MakeTab({"脚本", "cool"})
 Tab:AddButton({
+    Name ="最强英雄特效",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/invertedth/OblivionGourd/refs/heads/main/Dabestscirpt"))()
+end
+})
+Tab:AddButton({
+    Name ="致命忍者更改",
+    Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Reapvitalized/TSB/refs/heads/main/VOLTA.lua"))()
+end
+})
+Tab:AddButton({
     Name ="改了最强和猎人（玛雅芯片）",
     Callback = function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenjihin69/Kenjihin69/refs/heads/main/Mahitotsbupdate"))()
